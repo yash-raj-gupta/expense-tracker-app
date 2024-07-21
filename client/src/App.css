@@ -8,6 +8,10 @@
 
 :root {
   --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  
+--scrollbar-size : 15px;
+--scrollbar-track : transparent;
+--scrollbar-thumb : lightgrey;
 }
 
 * {
@@ -23,12 +27,11 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: 'Lato', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .container {
   margin: 30px auto;
-  width: 400px;
 }
 
 h1 {
@@ -38,7 +41,7 @@ h1 {
 
 h3 {
   border-bottom: 1px solid #bbb;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   margin: 40px 0 10px;
 }
 
@@ -149,10 +152,44 @@ input[type='number'] {
   top: 50%;
   left: 0;
   transform: translate(-100%, -50%);
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
-
+/* 
 .list li:hover .delete-btn {
   opacity: 1;
+} */
+
+
+
+::-webkit-scrollbar { 
+  width: 11px; 
+  height: 2px;
+  background: var(--scrollbar-track);  
+  
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb); 
+  border-radius: 10px; 
+
+   /* :hover {
+    background: rgba(0, 0, 0, 0.02); 
+  } */
+  
+  /* :active {
+    background: rgba(0, 0, 0, 0.05); 
+  } */
+  
+}
+
+::-webkit-scrollbar-corner { 
+  background: var(--scrollbar-thumb);
+}
+
+::-webkit-resizer  { 
+  background: var(--scrollbar-thumb);  
+}
+.scroller{
+ 
 }

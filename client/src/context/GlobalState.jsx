@@ -20,11 +20,14 @@ export const GlobalProvider = ({children}) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
     //Actions
-
+    console.log(import.meta.env.VITE_API_URL) 
     async function getTransactions() {
         try{
-           const res = await axios.get('/api/v1/transactions');
-
+           const res = await axios.get(`${import.meta.env.VITE_API_URL}/transactions`, {
+               headers: {
+                   'Access-Control-Allow-Origin': '*'
+               }
+           });
            dispatch({
             type: 'GET_TRANSACTIONS',
             payload: res.data.data
@@ -37,18 +40,42 @@ export const GlobalProvider = ({children}) => {
 
         }
     }
-    function deleteTransaction(id) {
-        dispatch({
+    async function deleteTransaction(id) {
+        try {
+          await axios.delete(`${import.meta.env.VITE_API_URL}/transactions/${id}`)  
+          dispatch({
             type: 'DELETE_TRANSACTION',
             payload: id,
         })
+        } catch (error) 
+        {
+            dispatch({
+                type: 'TRANSACTION_ERROR',
+                payload: error.response.data.error
+            })    
+        }
+
     }
 
-    function addTransaction(transaction) {
-        dispatch({
-            type: 'ADD_TRANSACTION',
-            payload: transaction,
-        })
+    async function addTransaction(transaction) {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/transactions`, transaction, config);
+            dispatch({
+                type: 'ADD_TRANSACTION',
+                payload: res.data.data,
+            })
+        } catch (error) {
+            dispatch({
+                type: 'TRANSACTION_ERROR',
+                payload: error.response.data.error
+            })   
+        }
     }
 
     return (<GlobalContext.Provider value={{

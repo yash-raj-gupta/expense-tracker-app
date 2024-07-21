@@ -10,15 +10,19 @@ const TransactionList = () => {
     getTransactions();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  transactions.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
   return (
-    <div>
+    <div className=" ">
         <h3>History</h3>
-        <ul  className="list">
-            {transactions.map(transaction => (
-              <Transaction key={transaction.id} transaction={transaction}/>
+        {transactions.length === 0 ? <p className="text-center justify-center flex flex-col h-[38vh] font-semibold">No Transactions done yet!</p>:
+        <ul  className="list h-[38vh]  w-full  overflow-y-auto scroller  ">
+            {transactions?.map((transaction,index) => (
+              <Transaction key={index} transaction={transaction}/>
             ))}
 
         </ul>
+}
       
     </div>
   )

@@ -14,11 +14,17 @@ function App() {
   return (
     <GlobalProvider>
     <Header/>
-    <div className="container">
+    <div className="container w-[100vw] flex flex-row gap-[20%] justify-center">
+      <div className=" w-[35%] ">
       <Balance/>
       <IncomeExpenses/>
       <TransactionList/>
+      </div>
+      <div className=" w-[30%] flex flex-col justify-center">
+
       <AddTransaction/>
+      </div>
+      
     </div>
     </GlobalProvider>
   )
