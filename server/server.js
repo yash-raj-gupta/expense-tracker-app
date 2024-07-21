@@ -9,8 +9,14 @@ const app = express();
 app.use(express.json());
 dotenv.config({ path: './config/config.env'})
 const transactions = require('./routes/transactions')
+const cors = require('cors');
 
 connectDB();
+
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'));
+}
+app.use(cors());
 
 app.use('/api/v1/transactions', transactions)
 
